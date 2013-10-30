@@ -34,6 +34,7 @@ SkillsDockWidget::SkillsDockWidget(QWidget *parent) :
     d.model->setFilterKeyColumn(d.repo->column("name"));
     d.model->setFilterCaseSensitivity(Qt::CaseInsensitive);
     connect(ui->filterLine, SIGNAL(textChanged(QString)), d.model, SLOT(setFilterFixedString(QString)));
+    connect(ui->filterLine, SIGNAL(textChanged(QString)), ui->skillsTable, SLOT(resizeRowsToContents()));
 
     //Set up the skills list table
     QSet<int> visibleColumns = QSet<int>() << d.repo->column("name") << d.repo->column("base");
@@ -46,16 +47,29 @@ SkillsDockWidget::SkillsDockWidget(QWidget *parent) :
     connect(ui->skillsTable->selectionModel(), SIGNAL(currentRowChanged(QModelIndex,QModelIndex)), this, SIGNAL(currentIndexChanged(QModelIndex)));
 
     d.toolBar = new QToolBar(this);
-    d.toolBar->setIconSize(QSize(32,16));
+    d.toolBar->setIconSize(QSize(16,16));
     d.toolBar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
     d.toolBar->setMovable(false);
     ui->toolbarLayout->insertWidget(0, d.toolBar);
 
-    d.toolBar->addAction(QIcon(":/icons/icons/add.png"), tr("New"));
+    d.toolBar->addAction(QIcon(":/icons/icons/add.png"), tr("New"), this, SLOT(addNewSkill()));
+    d.toolBar->addAction(QIcon(":/icons/icons/remove.png"), tr("Delete"), this, SLOT(removeSelectedSkill()));
 }
 
 SkillsDockWidget::~SkillsDockWidget()
 {
     delete ui;
     delete &d;
+}
+
+void SkillsDockWidget::addNewSkill() {
+    DataObject *object = d.repo->createObject();
+    int row = d.repo->indexOf(object).row();
+    ui->skillsTable->selectRow(row);
+    ui->skillsTable->resizeRowToContents(row);
+}
+
+void SkillsDockWidget::removeSelectedSkill() {
+    d.repo->remove(ui->skillsTable->currentIndex());
+    d.repo->submit();
 }

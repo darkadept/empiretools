@@ -18,6 +18,10 @@ public:
 signals:
     void currentIndexChanged(const QModelIndex &index);
 
+private slots:
+    void addNewSkill();
+    void removeSelectedSkill();
+
 private:
     Ui::SkillsDockWidget *ui;
     class SkillsDockWidgetPrivate &d;

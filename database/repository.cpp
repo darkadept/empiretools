@@ -58,6 +58,8 @@ Repository::~Repository() {
  * Creates an object of this Repository's type.
  */
 DataObject* Repository::createObject() {
+    beginInsertRows(QModelIndex(), d.objects.count(), d.objects.count());
+
     //Attempt to create the object
     DataObject *object = qobject_cast<DataObject*>(d.meta.newInstance());
     if (!object) return 0;
@@ -69,6 +71,8 @@ DataObject* Repository::createObject() {
     d.idIndex.insert(object->id(), object);
     d.idsToAdd << object->id();
     updateMd5(object);
+
+    endInsertRows();
     return object;
 }
 

@@ -4,6 +4,7 @@
 #include <QPushButton>
 #include <QMetaEnum>
 #include <QDebug>
+#include <QModelIndex>
 #include "database/orm.h"
 #include "ui/datawidgetmapper.h"
 
@@ -60,6 +61,7 @@ SkillEdit::~SkillEdit()
 
 void SkillEdit::setCurrentIndex(const QModelIndex &index) {
     if (!index.isValid()) return;
+    d.mapper->submit();
     d.mapper->setCurrentIndex(index.row());
 }
 
