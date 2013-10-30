@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>icons/add.png</file>
+        <file>icons/remove.png</file>
+        <file>icons/Male.png</file>
+        <file>icons/Views.png</file>
+        <file alias="windowicon.png">Imperial Shuttle - 01.png</file>
+        <file>icons/Millenium Falcon - 01.png</file>
+        <file>icons/R2D2-Archigraphs_512x512.png</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file alias="galacticmap.jpg">map/Galactic Map.jpg</file>
+    </qresource>
+    <qresource prefix="/data">
+        <file alias="regions.txt">map/regions.txt</file>
+    </qresource>
+</RCC>
