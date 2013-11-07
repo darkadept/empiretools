@@ -6,7 +6,7 @@
 #include <QFile>
 #include <QDir>
 
-#include "controller.h"
+#include "mainapp.h"
 #include "mainwindow.h"
 
 int main(int argc, char *argv[])
@@ -28,7 +28,10 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    Controller c;
-    c.start();
+    MainWindow mw;
+    mw.show();
+//    MainApp *qrap = new MainApp();
+//    qrap->start();
+
     return a.exec();
 }

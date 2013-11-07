@@ -11,6 +11,8 @@
 #include "skills/skillsdockwidget.h"
 #include "skills/skilledit.h"
 
+#include "character/charactersdockwidget.h"
+
 class ControllerPrivate {
 public:
 };
@@ -25,10 +27,10 @@ Controller::Controller(QObject *parent) :
     d(*new ControllerPrivate),
     ui(*new ControllerUiPrivate)
 {
-    Orm::instance()->registerDataObject<Skill>();
-    Orm::instance()->registerDataObject<Character>();
+    ORM()->registerDataObject<Skill>();
+    ORM()->registerDataObject<Character>();
 
-    Orm::instance()->loadAll();
+    ORM()->loadAll();
 
     //Init ui
     ui.mainWindow = new MainWindow;
@@ -41,63 +43,57 @@ Controller::~Controller() {
 }
 
 void Controller::start() {
-//    initPlayers();
-    initMap();
-    initSkills();
+//    initMap();
+//    initSkills();
+//    initCharacters();
 
-    ui.mainWindow->setFacet(0);
-    ui.mainWindow->show();
+//    ui.mainWindow->setFacet(0);
+//    ui.mainWindow->show();
 }
 
-/*
-void Controller::initPlayers() {
-    MainWindowFacet facet;
-    facet.title = tr("Characters");
+void Controller::createSkill() {
+//    DataObject *object = REPOSITORY("Skill")->createObject();
 
-    // player dock
-    QTableView *playerView = new QTableView();
-    //playerView->setModel(d.playerModel);
-    //    connect(d.playerView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(selectPlayer(QModelIndex)));
-    QDockWidget *dock = new QDockWidget(tr("Characters"));
-    dock->setAllowedAreas((Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea));
-    dock->setFeatures(QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable);
-    dock->setWidget(playerView);
-
-    facet.facetDocks.append(qMakePair(Qt::RightDockWidgetArea, dock));
-
-    facet.widget = new QLabel("hello world");
-
-    int id = ui.mainWindow->addFacet(facet);
-    ui.mainWindow->setFacet(id);
-}
-*/
-
-void Controller::initMap() {
-    MainWindowFacet facet;
-    facet.title = tr("Maps");
-
-    MapDockWidget *dock = new MapDockWidget(ui.mainWindow);
-    facet.facetDocks.append(qMakePair(Qt::RightDockWidgetArea, qobject_cast<QDockWidget*>(dock)));
-
-    MapWidget *mapWidget = new MapWidget(dock, ui.mainWindow);
-    facet.widget = mapWidget;
-
-    ui.mainWindow->addFacet(facet);
 }
 
 
-void Controller::initSkills() {
-    MainWindowFacet facet;
-    facet.title = tr("Skills");
+//void Controller::initMap() {
+//    MainWindowFacet facet;
+//    facet.title = tr("Maps");
 
-    SkillEdit *skillEdit = new SkillEdit(ui.mainWindow);
-    facet.widget = skillEdit;
+//    MapDockWidget *dock = new MapDockWidget(ui.mainWindow);
+//    facet.facetDocks.append(qMakePair(Qt::RightDockWidgetArea, qobject_cast<QDockWidget*>(dock)));
 
-    SkillsDockWidget* dock = new SkillsDockWidget(ui.mainWindow);
-    facet.facetDocks.append(qMakePair(Qt::LeftDockWidgetArea, qobject_cast<QDockWidget*>(dock)));
+//    MapWidget *mapWidget = new MapWidget(dock, ui.mainWindow);
+//    facet.widget = mapWidget;
 
-    connect(dock, SIGNAL(currentIndexChanged(QModelIndex)), skillEdit, SLOT(setCurrentIndex(QModelIndex)));
+//    ui.mainWindow->addFacet(facet);
+//}
 
-    ui.mainWindow->addFacet(facet);
-}
 
+//void Controller::initSkills() {
+//    MainWindowFacet facet;
+//    facet.title = tr("Skills");
+
+//    SkillEdit *skillEdit = new SkillEdit(ui.mainWindow);
+//    facet.widget = skillEdit;
+
+//    SkillsDockWidget* dock = new SkillsDockWidget(ui.mainWindow);
+//    facet.facetDocks.append(qMakePair(Qt::LeftDockWidgetArea, qobject_cast<QDockWidget*>(dock)));
+
+//    connect(dock, SIGNAL(currentIndexChanged(QModelIndex)), skillEdit, SLOT(setCurrentIndex(QModelIndex)));
+
+//    ui.mainWindow->addFacet(facet);
+//}
+
+//void Controller::initCharacters() {
+//    MainWindowFacet facet;
+//    facet.title = tr("Characters");
+
+//    facet.widget = new QWidget();
+
+//    CharactersDockWidget* dock = new CharactersDockWidget(ui.mainWindow);
+//    facet.facetDocks.append(qMakePair(Qt::LeftDockWidgetArea, qobject_cast<QDockWidget*>(dock)));
+
+//    ui.mainWindow->addFacet(facet);
+//}

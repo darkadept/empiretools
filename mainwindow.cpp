@@ -3,13 +3,13 @@
 
 #include <QToolBar>
 #include <QDebug>
+#include <QStatusBar>
 
 class MainWindowPrivate {
 public:
-    int currentFacet;
-    QHash<int, MainWindowFacet> facets;
-
     QToolBar *toolBar;
+//    QHash<int, IMainWindowFacet*> facets;
+    int currentFacet;
 };
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -18,90 +18,83 @@ MainWindow::MainWindow(QWidget *parent) :
     d(*new MainWindowPrivate)
 {
     d.currentFacet = -1;
-    ui->setupUi(this);
 
-    d.toolBar = new QToolBar();
-    d.toolBar->setIconSize(QSize(64,32));
-    d.toolBar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-    d.toolBar->setMovable(false);
-    addToolBar(Qt::TopToolBarArea, d.toolBar);
+    //Create main toolbar
+//    d.toolBar = new QToolBar();
+//    d.toolBar->setIconSize(QSize(64,32));
+//    d.toolBar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+//    d.toolBar->setMovable(false);
+//    addToolBar(Qt::TopToolBarArea, d.toolBar);
 
-    connect(ui->stack, SIGNAL(currentChanged(int)), this, SLOT(setFacet(int)));
-    connect(d.toolBar, SIGNAL(actionTriggered(QAction*)), this, SLOT(activateToolBarAction(QAction*)));
+    //connect(ui->stack, SIGNAL(currentChanged(int)), this, SLOT(setFacet(int)));
+    //connect(d.toolBar, SIGNAL(actionTriggered(QAction*)), this, SLOT(activateToolBarAction(QAction*)));
+
+    ui->stack->addWidget(new QWidget);
+
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow() {
     delete ui;
     delete &d;
 }
 
-/**
- * @brief MainWindow::addFacet
- * @param facet
- * @return
- * Adds a new facet to the MainWindow.
- */
-int MainWindow::addFacet(const MainWindowFacet &facet) {
-    if (!facet.widget) return -1;
+//int MainWindow::addFacet(IMainWindowFacet *facet) {
+//    if (!facet) return -1;
+//    Q_ASSERT(facet->mainWidget());
 
-    //int id = ui->stack->addTab(facet.widget, facet.title);
-    int id = ui->stack->addWidget(facet.widget);
+//    Q_ASSERT(ui);
+//    Q_ASSERT(ui->stack);
 
-    QAction *action = d.toolBar->addAction(facet.widget->windowIcon(), facet.title);
-    action->setData(id);
-    action->setCheckable(true);
+//    QList<QDockWidget*> list = facet->dockWidgets();
+//    qDebug() << list.count();
 
-    d.facets.insert(id, facet);
-    addFacetChrome(id);
-    return id;
-}
 
-/**
- * @brief MainWindow::addFacetChrome
- * @param id
- * Adds the specified facet's chrome to the MainWindow. (ie. DockWidget's, etc.)
- */
-void MainWindow::addFacetChrome(int id) {
-    // Adds DockWidget chrome.
-    QPair<Qt::DockWidgetArea, QDockWidget*> dock;
-    foreach (dock, d.facets.value(id).facetDocks) {
-        addDockWidget(dock.first, dock.second);
-        dock.second->hide();
-    }
-}
+//    //Add mainWidget to stack
+//    QWidget *mainWidget = facet->mainWidget();
+//    Q_ASSERT(mainWidget);
+//    ui->stack->addWidget(mainWidget);
+////    int index = ui->stack->addWidget(mainWidget);
+//    //int index = ui->stack->addWidget(new QWidget());
+//    int index = 1;
 
-/**
- * @brief MainWindow::setFacet
- * @param index
- * Sets the facet to the specified index.
- */
-void MainWindow::setFacet(int index) {
-    if (index == -1) return;
-    if (index == d.currentFacet) return;
-    if (d.facets.count()==0) return;
+//    d.facets.insert(index, facet);
 
-    //Hide old facet specific chrome
-    if (d.currentFacet >= 0) {
-        QPair<Qt::DockWidgetArea, QDockWidget*> dock;
-        foreach (dock, d.facets.value(d.currentFacet).facetDocks) {
-            dock.second->hide();
-        }
-    }
+//    //Create toolbar action
+//    QAction *action = d.toolBar->addAction(facet->mainWidget()->windowIcon(), facet->mainWidget()->windowTitle());
+//    action->setData(index);
+//    action->setCheckable(true);
 
-    //Show new facet chrome
-    QPair<Qt::DockWidgetArea, QDockWidget*> dock;
-    foreach (dock, d.facets.value(index).facetDocks) {
-        dock.second->show();
-    }
+//    //Add DockWidgets
+//    foreach (QDockWidget *dock, facet->dockWidgets()) {
+//        dock->setParent(this);
+//        addDockWidget(Qt::LeftDockWidgetArea, dock);
+//        dock->hide();
+//    }
 
-    d.currentFacet = index;
-}
+//    return index;
+//}
 
-void MainWindow::activateToolBarAction(QAction *action) {
-    ui->stack->setCurrentIndex(action->data().toInt());
-    action->setChecked(true);
-    foreach (QAction *act, d.toolBar->actions()) {
-        if (act != action && act->isChecked()) act->setChecked(false);
-    }
-}
+//void MainWindow::setFacet(int index) {
+//    if (!d.facets.contains(index)) return;
+//    if (d.facets.count()==0) return;
+
+//    if (d.currentFacet >= 0 && d.currentFacet != index) {
+
+//        //Hide all DockWidgets
+//        foreach(IMainWindowFacet* facet, d.facets.values()) {
+//            foreach(QDockWidget* dock, facet->dockWidgets()) {
+//                dock->hide();
+//            }
+//        }
+
+//        //Show this facet's DockWidgets
+//        foreach(QDockWidget* dock, d.facets.value(index)->dockWidgets()) {
+//            dock->show();
+//        }
+//        d.currentFacet = index;
+//    }
+//}
+
+//void MainWindow::setFacet(IMainWindowFacet *facet) {
+//    setFacet(d.facets.key(facet));
+//}

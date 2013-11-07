@@ -45,6 +45,12 @@ void Orm::loadAll() {
     }
 }
 
+void Orm::submitAll() {
+    foreach (Repository *repo, d.repos.values()) {
+        repo->submit();
+    }
+}
+
 void Orm::addMetaObject(const QString &className, const QMetaObject &metaObj) {
     if (d.meta.contains(className)) return;
 
@@ -136,14 +142,4 @@ bool Orm::createTable(const QString &className) const {
         return false;
     }
     return true;
-}
-
-void Orm::D_properties() {
-    foreach (const QMetaObject& meta, d.meta) {
-        qDebug() << meta.className();
-        for (int i=meta.propertyOffset(); i<meta.propertyCount(); ++i) {
-            QMetaProperty p = meta.property(i);
-            qDebug() << p.name() << " - " << p.typeName() << "ENUM:" << p.isEnumType() << "USER:" << p.isUser();
-        }
-    }
 }

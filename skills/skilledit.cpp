@@ -22,17 +22,17 @@ SkillEdit::SkillEdit(QWidget *parent) :
 
     ui->buttonBox->setStandardButtons(QDialogButtonBox::Save | QDialogButtonBox::Cancel);
 
-    QMetaEnum skillBaseEnum = Orm::instance()->metaEnum("SkillBase");
+    QMetaEnum skillBaseEnum = ORM()->metaEnum("SkillBase");
     for (int i=0; i<skillBaseEnum.keyCount(); ++i) {
         ui->base->addItem(skillBaseEnum.key(i));
     }
 
-    QMetaEnum skillCategoryEnum = Orm::instance()->metaEnum("SkillCategory");
+    QMetaEnum skillCategoryEnum = ORM()->metaEnum("SkillCategory");
     for (int i=0; i<skillCategoryEnum.keyCount(); ++i) {
         ui->category->addItem(skillCategoryEnum.key(i));
     }
 
-    Repository *skillRepo = Orm::instance()->repository("Skill");
+    Repository *skillRepo = REPOSITORY("Skill");
     d.mapper = new DataWidgetMapper(this);
     d.mapper->setSubmitPolicy(DataWidgetMapper::ManualSubmit);
     d.mapper->setModel(skillRepo);

@@ -15,15 +15,18 @@ signals:
     
 public slots:
     void start();
+
+private slots:
+    void createSkill();
     
 private:
     class ControllerPrivate &d;
     class ControllerUiPrivate &ui;
 
 //    void initPlayers();
-    void initMap();
-    void initSkills();
-
+//    void initMap();
+//    void initSkills();
+//    void initCharacters();
 };
 
 #endif // CONTROLLER_H

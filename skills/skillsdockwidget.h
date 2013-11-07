@@ -16,11 +16,16 @@ public:
     ~SkillsDockWidget();
 
 signals:
-    void currentIndexChanged(const QModelIndex &index);
+    void skillCreateClicked();
+    void skillRemoveClicked(const QModelIndex &index);
+    void skillSelected(const QModelIndex &index);
+
+public slots:
+    void selectSkill(const QModelIndex &index);
 
 private slots:
-    void addNewSkill();
-    void removeSelectedSkill();
+    void emitSkillSelected(const QModelIndex &index);
+    void emitSkillRemoveClicked(const QModelIndex &index);
 
 private:
     Ui::SkillsDockWidget *ui;

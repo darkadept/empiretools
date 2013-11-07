@@ -4,6 +4,11 @@
 #include <QObject>
 #include "repository.h"
 
+#define ORM() Orm::instance()
+#define REPOSITORY(x) Orm::instance()->repository(x)
+#define CREATE_OBJECT(x) Orm::instance()->repository(x)->createObject()
+#define CREATE(x, t) Orm::instance()->repository(x)->create<t>()
+
 class Orm : public QObject
 {
     Q_OBJECT
@@ -21,8 +26,7 @@ public:
     Repository *repository(const QString &className);
 
     void loadAll();
-
-    void D_properties();
+    void submitAll();
 
 private:
     void addMetaObject(const QString &className, const QMetaObject &metaObj);
