@@ -25,7 +25,7 @@ SkillsDockWidget::SkillsDockWidget(QWidget *parent) :
     ui->setupUi(this);
 
     //Find the Repository
-    d.repo = Orm::instance()->repository("Skill");
+    d.repo = REPOSITORY("Skill");
     Q_ASSERT(d.repo);
 
     //Set up the filter model

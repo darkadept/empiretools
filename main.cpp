@@ -7,7 +7,6 @@
 #include <QDir>
 
 #include "mainapp.h"
-#include "mainwindow.h"
 
 int main(int argc, char *argv[])
 {
@@ -28,10 +27,7 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    MainWindow mw;
-    mw.show();
-//    MainApp *qrap = new MainApp();
-//    qrap->start();
-
+    MainApp app;
+    app.start();
     return a.exec();
 }

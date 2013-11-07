@@ -16,11 +16,14 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-//    int addFacet(IMainWindowFacet *facet);
+    int addFacet(IMainWindowFacet *facet);
     
-//public slots:
-//    void setFacet(int index);
-//    void setFacet(IMainWindowFacet *facet);
+public slots:
+    void setFacet(int index);
+    void setFacet(IMainWindowFacet *facet);
+
+private slots:
+    void activateToolBarAction(QAction *action);
 
 private:
     Ui::MainWindow *ui;

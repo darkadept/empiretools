@@ -29,7 +29,8 @@ SOURCES += main.cpp\
     ui/datawidgetmapper.cpp \
     character/charactersdockwidget.cpp \
     skills/skillview.cpp \
-    mainapp.cpp
+    mainapp.cpp \
+    map/mapview.cpp
 
 HEADERS  += mainwindow.h \
     database/repository.h \
@@ -48,7 +49,8 @@ HEADERS  += mainwindow.h \
     character/charactersdockwidget.h \
     ui/imainwindowfacet.h \
     skills/skillview.h \
-    mainapp.h
+    mainapp.h \
+    map/mapview.h
 
 FORMS    += mainwindow.ui \
     map/mapwidget.ui \
