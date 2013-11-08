@@ -7,6 +7,7 @@
 
 #include "skills/skill.h"
 #include "skills/skillview.h"
+#include "skills/skillcontroller.h"
 
 #include "character/character.h"
 
@@ -14,7 +15,9 @@ class MainAppPrivate {
 public:
     MainWindow *mainWindow;
 
+    SkillController *skillController;
     SkillView *skillView;
+
     MapView *mapView;
 };
 
@@ -28,7 +31,9 @@ MainApp::MainApp(QObject *parent) :
 
     d.mainWindow = new MainWindow();
 
+    d.skillController = new SkillController(this);
     d.skillView = new SkillView(this);
+    connect(d.skillView, SIGNAL(createSkillClicked()), d.skillController, SLOT(createSkill()));
     d.mainWindow->addFacet(d.skillView);
 
     d.mapView = new MapView(this);

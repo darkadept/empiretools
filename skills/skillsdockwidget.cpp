@@ -12,12 +12,10 @@
 
 class SkillsDockWidgetPrivate {
 public:
-    QSortFilterProxyModel *model;
     QToolBar *toolBar;
-    Repository *repo;
 };
 
-SkillsDockWidget::SkillsDockWidget(QWidget *parent) :
+SkillsDockWidget::SkillsDockWidget(QSortFilterProxyModel *model, QWidget *parent) :
     QDockWidget(parent),
     ui(new Ui::SkillsDockWidget),
     d(*new SkillsDockWidgetPrivate)
@@ -25,21 +23,16 @@ SkillsDockWidget::SkillsDockWidget(QWidget *parent) :
     ui->setupUi(this);
 
     //Find the Repository
-    d.repo = REPOSITORY("Skill");
-    Q_ASSERT(d.repo);
+    Repository *repo = REPOSITORY("Skill");
+    Q_ASSERT(repo);
 
-    //Set up the filter model
-    d.model = new QSortFilterProxyModel(this);
-    d.model->setSourceModel(d.repo);
-    d.model->setFilterKeyColumn(d.repo->column("name"));
-    d.model->setFilterCaseSensitivity(Qt::CaseInsensitive);
-    connect(ui->filterLine, SIGNAL(textChanged(QString)), d.model, SLOT(setFilterFixedString(QString)));
+    connect(ui->filterLine, SIGNAL(textChanged(QString)), model, SLOT(setFilterFixedString(QString)));
     connect(ui->filterLine, SIGNAL(textChanged(QString)), ui->skillsTable, SLOT(resizeRowsToContents()));
 
     //Set up the skills list table
-    QSet<int> visibleColumns = QSet<int>() << d.repo->column("name") << d.repo->column("base");
-    ui->skillsTable->setModel(d.model);
-    for (int i=0; i<d.repo->columnCount(); ++i) {
+    QSet<int> visibleColumns = QSet<int>() << repo->column("name") << repo->column("base");
+    ui->skillsTable->setModel(model);
+    for (int i=0; i<repo->columnCount(); ++i) {
         if (!visibleColumns.contains(i))
             ui->skillsTable->hideColumn(i);
     }
@@ -52,8 +45,8 @@ SkillsDockWidget::SkillsDockWidget(QWidget *parent) :
     d.toolBar->setMovable(false);
     ui->toolbarLayout->insertWidget(0, d.toolBar);
 
-//    d.toolBar->addAction(QIcon(":/icons/icons/add.png"), tr("New"), this, SIGNAL(skillCreateClicked()));
-//    d.toolBar->addAction(QIcon(":/icons/icons/remove.png"), tr("Delete"), this, SLOT(emitSkillRemoveClicked(QModelIndex)));
+    d.toolBar->addAction(QIcon(":/icons/icons/add.png"), tr("New"), this, SIGNAL(skillCreateClicked()));
+    d.toolBar->addAction(QIcon(":/icons/icons/remove.png"), tr("Delete"), this, SLOT(emitSkillRemoveClicked()));
 }
 
 SkillsDockWidget::~SkillsDockWidget()
@@ -62,16 +55,16 @@ SkillsDockWidget::~SkillsDockWidget()
     delete &d;
 }
 
-void SkillsDockWidget::selectSkill(const QModelIndex &index) {
-    ui->skillsTable->setCurrentIndex(d.model->mapFromSource(index));
-}
+//void SkillsDockWidget::selectSkill(const QModelIndex &index) {
+//    ui->skillsTable->setCurrentIndex(d.model->mapFromSource(index));
+//}
 
-void SkillsDockWidget::emitSkillSelected(const QModelIndex &index) {
-    emit skillSelected(d.model->mapToSource(index));
-}
+//void SkillsDockWidget::emitSkillSelected(const QModelIndex &index) {
+//    emit skillSelected(d.model->mapToSource(index));
+//}
 
-void SkillsDockWidget::emitSkillRemoveClicked(const QModelIndex &index) {
-    emit skillRemoveClicked(d.model->mapToSource(index));
+void SkillsDockWidget::emitSkillRemoveClicked() {
+    emit skillRemoveClicked(ui->skillsTable->selectionModel()->currentIndex());
 }
 
 //void SkillsDockWidget::addNewSkill() {

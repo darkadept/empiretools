@@ -15,6 +15,10 @@ public:
     virtual QWidget *mainWidget();
     virtual QList<QDockWidget*> dockWidgets();
 
+signals:
+    void createSkillClicked();
+    void removeSkillClicked(const QModelIndex &index);
+
 private:
     class SkillViewPrivate &d;
 };

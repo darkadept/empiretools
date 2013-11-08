@@ -1,6 +1,7 @@
 #ifndef SKILLSDOCKWIDGET_H
 #define SKILLSDOCKWIDGET_H
 
+#include <QSortFilterProxyModel>
 #include <QDockWidget>
 
 namespace Ui {
@@ -12,7 +13,7 @@ class SkillsDockWidget : public QDockWidget
     Q_OBJECT
 
 public:
-    explicit SkillsDockWidget(QWidget *parent = 0);
+    explicit SkillsDockWidget(QSortFilterProxyModel *model, QWidget *parent = 0);
     ~SkillsDockWidget();
 
 signals:
@@ -20,12 +21,12 @@ signals:
     void skillRemoveClicked(const QModelIndex &index);
     void skillSelected(const QModelIndex &index);
 
-public slots:
-    void selectSkill(const QModelIndex &index);
+//public slots:
+//    void selectSkill(const QModelIndex &index);
 
 private slots:
-    void emitSkillSelected(const QModelIndex &index);
-    void emitSkillRemoveClicked(const QModelIndex &index);
+//    void emitSkillSelected(const QModelIndex &index);
+    void emitSkillRemoveClicked();
 
 private:
     Ui::SkillsDockWidget *ui;

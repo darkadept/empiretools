@@ -30,7 +30,8 @@ SOURCES += main.cpp\
     character/charactersdockwidget.cpp \
     skills/skillview.cpp \
     mainapp.cpp \
-    map/mapview.cpp
+    map/mapview.cpp \
+    skills/skillcontroller.cpp
 
 HEADERS  += mainwindow.h \
     database/repository.h \
@@ -50,7 +51,8 @@ HEADERS  += mainwindow.h \
     ui/imainwindowfacet.h \
     skills/skillview.h \
     mainapp.h \
-    map/mapview.h
+    map/mapview.h \
+    skills/skillcontroller.h
 
 FORMS    += mainwindow.ui \
     map/mapwidget.ui \
