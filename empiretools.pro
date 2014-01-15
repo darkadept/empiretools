@@ -23,15 +23,14 @@ SOURCES += main.cpp\
     skills/skill.cpp \
     database/orm.cpp \
     database/databridge.cpp \
-    skills/skillsdockwidget.cpp \
     ui/enumdelegate.cpp \
-    skills/skilledit.cpp \
     ui/datawidgetmapper.cpp \
     character/charactersdockwidget.cpp \
-    skills/skillview.cpp \
     mainapp.cpp \
     map/mapview.cpp \
-    skills/skillcontroller.cpp
+    skills/skillcontroller.cpp \
+    skills/skillview.cpp \
+    ui/searchlistview.cpp
 
 HEADERS  += mainwindow.h \
     database/repository.h \
@@ -43,23 +42,24 @@ HEADERS  += mainwindow.h \
     skills/skill.h \
     database/orm.h \
     database/databridge.h \
-    skills/skillsdockwidget.h \
     ui/enumdelegate.h \
-    skills/skilledit.h \
     ui/datawidgetmapper.h \
     character/charactersdockwidget.h \
     ui/imainwindowfacet.h \
-    skills/skillview.h \
     mainapp.h \
     map/mapview.h \
-    skills/skillcontroller.h
+    skills/skillcontroller.h \
+    skills/skillview.h \
+    ui/searchlistview.h
 
 FORMS    += mainwindow.ui \
     map/mapwidget.ui \
     map/mapdockwidget.ui \
-    skills/skillsdockwidget.ui \
-    skills/skilledit.ui \
-    character/charactersdockwidget.ui
+    character/charactersdockwidget.ui \
+    skills/skillview.ui \
+    ui/searchlistview.ui
 
 RESOURCES += \
-    resources.qrc
+    resources.qrc \
+    skills/skills.qrc \
+    map/map.qrc

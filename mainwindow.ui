@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">
-    <normaloff>:/icons/windowicon.png</normaloff>:/icons/windowicon.png</iconset>
+    <normaloff>:/images/empiretools_logo.png</normaloff>:/images/empiretools_logo.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">

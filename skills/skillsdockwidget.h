@@ -21,12 +21,9 @@ signals:
     void skillRemoveClicked(const QModelIndex &index);
     void skillSelected(const QModelIndex &index);
 
-//public slots:
-//    void selectSkill(const QModelIndex &index);
-
 private slots:
-//    void emitSkillSelected(const QModelIndex &index);
-    void emitSkillRemoveClicked();
+    void emitRemoveClicked();
+    void emitSelectClicked();
 
 private:
     Ui::SkillsDockWidget *ui;

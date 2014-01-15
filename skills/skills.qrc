@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/images/toolbar">
+        <file>skills_toolbar_icon.png</file>
+    </qresource>
+</RCC>

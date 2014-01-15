@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>galacticmap.jpg</file>
+    </qresource>
+    <qresource prefix="/data">
+        <file>regions.txt</file>
+    </qresource>
+    <qresource prefix="/images/toolbar">
+        <file>map_toolbar_icon.png</file>
+    </qresource>
+</RCC>

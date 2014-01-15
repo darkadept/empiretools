@@ -1,17 +1,65 @@
 <RCC>
-    <qresource prefix="/icons">
+    <qresource prefix="/">
         <file>icons/add.png</file>
-        <file>icons/remove.png</file>
+        <file>icons/Alien.png</file>
+        <file>icons/Calculator.png</file>
+        <file>icons/Calender.png</file>
+        <file>icons/Cloud 1.png</file>
+        <file>icons/Cloud 2.png</file>
+        <file>icons/Cloud 3.png</file>
+        <file>icons/Comment 1.png</file>
+        <file>icons/Comment 2.png</file>
+        <file>icons/Comment 3.png</file>
+        <file>icons/Comment 4.png</file>
+        <file>icons/Cross.png</file>
+        <file>icons/Down 1.png</file>
+        <file>icons/Down 2.png</file>
+        <file>icons/Female.png</file>
+        <file>icons/Flag.png</file>
+        <file>icons/Heart.png</file>
+        <file>icons/Home 1.png</file>
+        <file>icons/Home 2.png</file>
+        <file>icons/Identification.png</file>
+        <file>icons/Image.png</file>
+        <file>icons/Images.png</file>
+        <file>icons/iPhone 1.png</file>
+        <file>icons/iPhone 2.png</file>
+        <file>icons/Link.png</file>
+        <file>icons/Mail 1.png</file>
+        <file>icons/Mail 2.png</file>
         <file>icons/Male.png</file>
+        <file>icons/Monitor.png</file>
+        <file>icons/Mouse.png</file>
+        <file>icons/Paper Plane.png</file>
+        <file>icons/Pencil.png</file>
+        <file>icons/Pie Chart.png</file>
+        <file>icons/Polaroid Camera.png</file>
+        <file>icons/remove.png</file>
+        <file>icons/Ribbon.png</file>
+        <file>icons/Search 1.png</file>
+        <file>icons/Search 2.png</file>
+        <file>icons/Search 3.png</file>
+        <file>icons/Settings.png</file>
+        <file>icons/Star 1.png</file>
+        <file>icons/Star 2.png</file>
+        <file>icons/Stats 1.png</file>
+        <file>icons/Stats 2.png</file>
+        <file>icons/Stats 3.png</file>
+        <file>icons/Telephone.png</file>
+        <file>icons/Test Tube.png</file>
+        <file>icons/Tick.png</file>
+        <file>icons/Trash.png</file>
+        <file>icons/TV.png</file>
+        <file>icons/UFO.png</file>
+        <file>icons/Up 1.png</file>
+        <file>icons/Up 2.png</file>
+        <file>icons/Up-Down.png</file>
         <file>icons/Views.png</file>
-        <file alias="windowicon.png">Imperial Shuttle - 01.png</file>
-        <file>icons/Millenium Falcon - 01.png</file>
-        <file>icons/R2D2-Archigraphs_512x512.png</file>
+        <file>icons/Vote 1.png</file>
+        <file>icons/Vote 2.png</file>
+        <file>icons/Wrench.png</file>
     </qresource>
     <qresource prefix="/images">
-        <file alias="galacticmap.jpg">map/Galactic Map.jpg</file>
-    </qresource>
-    <qresource prefix="/data">
-        <file alias="regions.txt">map/regions.txt</file>
+        <file>empiretools_logo.png</file>
     </qresource>
 </RCC>

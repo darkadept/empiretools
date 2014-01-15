@@ -1,26 +1,26 @@
 #ifndef SKILLVIEW_H
 #define SKILLVIEW_H
 
-#include <QObject>
+#include <QWidget>
 #include "ui/imainwindowfacet.h"
 
-class SkillView : public QObject, public IMainWindowFacet
+namespace Ui {
+class SkillView;
+}
+
+class SkillView : public QWidget, public IMainWindowFacet
 {
     Q_OBJECT
+
 public:
-    explicit SkillView(QObject *parent = 0);
-    virtual ~SkillView();
+    explicit SkillView(QWidget *parent = 0);
+    ~SkillView();
 
-    //IMainWindowFacet
-    virtual QWidget *mainWidget();
-    virtual QList<QDockWidget*> dockWidgets();
-
-signals:
-    void createSkillClicked();
-    void removeSkillClicked(const QModelIndex &index);
+    QWidget* mainWidget();
+    QList<QDockWidget*> dockWidgets();
 
 private:
-    class SkillViewPrivate &d;
+    Ui::SkillView *ui;
 };
 
 #endif // SKILLVIEW_H

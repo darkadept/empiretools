@@ -11,7 +11,8 @@
 #include "database/orm.h"
 
 class SkillsDockWidgetPrivate {
-public:
+public:    
+    QSortFilterProxyModel *model;
     QToolBar *toolBar;
 };
 
@@ -22,12 +23,11 @@ SkillsDockWidget::SkillsDockWidget(QSortFilterProxyModel *model, QWidget *parent
 {
     ui->setupUi(this);
 
+    d.model = model;
+
     //Find the Repository
     Repository *repo = REPOSITORY("Skill");
     Q_ASSERT(repo);
-
-    connect(ui->filterLine, SIGNAL(textChanged(QString)), model, SLOT(setFilterFixedString(QString)));
-    connect(ui->filterLine, SIGNAL(textChanged(QString)), ui->skillsTable, SLOT(resizeRowsToContents()));
 
     //Set up the skills list table
     QSet<int> visibleColumns = QSet<int>() << repo->column("name") << repo->column("base");
@@ -37,7 +37,7 @@ SkillsDockWidget::SkillsDockWidget(QSortFilterProxyModel *model, QWidget *parent
             ui->skillsTable->hideColumn(i);
     }
     ui->skillsTable->resizeRowsToContents();
-//    connect(ui->skillsTable->selectionModel(), SIGNAL(currentRowChanged(QModelIndex,QModelIndex)), this, SIGNAL(emitSkillSelected(QModelIndex)));
+
 
     d.toolBar = new QToolBar(this);
     d.toolBar->setIconSize(QSize(16,16));
@@ -45,8 +45,12 @@ SkillsDockWidget::SkillsDockWidget(QSortFilterProxyModel *model, QWidget *parent
     d.toolBar->setMovable(false);
     ui->toolbarLayout->insertWidget(0, d.toolBar);
 
-    d.toolBar->addAction(QIcon(":/icons/icons/add.png"), tr("New"), this, SIGNAL(skillCreateClicked()));
-    d.toolBar->addAction(QIcon(":/icons/icons/remove.png"), tr("Delete"), this, SLOT(emitSkillRemoveClicked()));
+    //d.toolBar->addAction(QIcon(":/icons/icons/add.png"), tr("New"), this, SIGNAL(skillCreateClicked()));
+    d.toolBar->addAction(QIcon(":/icons/icons/remove.png"), tr("Delete"), this, SLOT(emitRemoveClicked()));
+
+    //Connect filter signals
+    connect(ui->filterLine, SIGNAL(textChanged(QString)), model, SLOT(setFilterFixedString(QString)));
+    connect(ui->filterLine, SIGNAL(textChanged(QString)), ui->skillsTable, SLOT(resizeRowsToContents()));
 }
 
 SkillsDockWidget::~SkillsDockWidget()
@@ -55,26 +59,10 @@ SkillsDockWidget::~SkillsDockWidget()
     delete &d;
 }
 
-//void SkillsDockWidget::selectSkill(const QModelIndex &index) {
-//    ui->skillsTable->setCurrentIndex(d.model->mapFromSource(index));
-//}
-
-//void SkillsDockWidget::emitSkillSelected(const QModelIndex &index) {
-//    emit skillSelected(d.model->mapToSource(index));
-//}
-
-void SkillsDockWidget::emitSkillRemoveClicked() {
-    emit skillRemoveClicked(ui->skillsTable->selectionModel()->currentIndex());
+void SkillsDockWidget::emitRemoveClicked() {
+    emit skillRemoveClicked(d.model->mapToSource(ui->skillsTable->selectionModel()->currentIndex()));
 }
 
-//void SkillsDockWidget::addNewSkill() {
-//    DataObject *object = d.repo->createObject();
-//    int row = d.repo->indexOf(object).row();
-//    ui->skillsTable->selectRow(row);
-//    ui->skillsTable->resizeRowToContents(row);
-//}
-
-//void SkillsDockWidget::removeSelectedSkill() {
-//    d.repo->remove(ui->skillsTable->currentIndex());
-//    d.repo->submit();
-//}
+void SkillsDockWidget::emitSelectClicked() {
+    emit skillSelected(d.model->mapToSource(ui->skillsTable->selectionModel()->currentIndex()));
+}
